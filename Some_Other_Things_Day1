@@ -1,0 +1,33 @@
+#CSND_Advanced_Bfx_Course
+#Some_Other_Things_Day1
+
+
+#Forget Cartagenia was the answer to the first assignment :-)
+
+
+#Extract all genotypes from vcf (this case example of a very very very infamous research study) using bioruby
+
+bio-vcf --seval s.gt < *.vcf
+
+
+#Select customer using sql from test database
+
+SELECT * FROM Customers
+WHERE ContactName='Victoria Ashworth';
+
+
+#Find the salesman who made the best profit using SQL and test databases.
+#SQL Commands/Keys gave no problems with lower casing
+#Note to self: in future stick to all lower OR all upper casing for own readability....
+
+SELECT Products.*, Orders.*, OrderDetails.*, Customers.*, Employees.*, SUM(Price * Quantity) AS TotalPrice
+FROM Products
+Join OrderDetails
+ON Products.ProductID=OrderDetails.ProductID
+Join Orders
+ON OrderDetails.OrderID=Orders.OrderID
+Join Customers
+ON Orders.CustomerID=Customers.CustomerID
+Join Employees
+On Orders.EmployeeID=Employees.EmployeeID
+Group BY Employees.EmployeeID
