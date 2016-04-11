@@ -1,0 +1,36 @@
+# CSND_Advanced_Bfx_Course 
+# Homework_Day1
+
+#Join at least 3 tables from test database at http://www.w3schools.com/sql/
+
+SELECT Products.*, Orders.*, OrderDetails.*, Customers.*
+FROM Products
+Join OrderDetails
+ON Products.ProductID=OrderDetails.ProductID
+Join Orders
+ON OrderDetails.OrderID=Orders.OrderID
+Join Customers
+ON Orders.CustomerID=Customers.CustomerID
+WHERE ProductName='Gorgonzola Telino'
+
+
+#SQL statement creating two tables, Mutations and Samples
+#Ref and alt bigger than 1, to not miss small dels etc..
+
+CREATE TABLE Mutations
+(
+MutationID int,
+Chromosome varchar(2),
+Position int,
+Alt varchar(50),
+Ref varchar(50),
+Filter varchar(50),
+Gene varchar(50)
+);
+
+CREATE TABLE Samples
+(
+SampleID varchar(25),
+MutationID int,
+Genotype varchar(3)
+);
