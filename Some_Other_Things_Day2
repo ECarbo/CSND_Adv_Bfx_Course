@@ -1,0 +1,73 @@
+#CSND_Advanced_Bfx_Course
+#Some_Other_Things_Day2
+
+
+#Exercise
+#Just do some queries using MongoDB
+
+#Prepare template with bio-vcf
+
+wget https://github.com/pjotrp/bioruby-vcf/raw/master/test/data/input/gatk_exome.vcf
+cat gatk_exome.vcf |bio-vcf --eval '[r.chr,r.pos]'
+
+#Create template
+
+cat > gatk_template.json
+
+{
+            "chr": "<%= rec.chrom %>",
+            "pos": <%= rec.pos %>,
+            "ref": "<%= rec.ref %>",
+            "alt": "<%= rec.alt[0] %>",
+            "dp":  <%= rec.info.dp %>
+}
+
+#Run and import into Mongo
+
+cat gatk_exome.vcf |bio-vcf --template gatk_template.json > gatk_exome.json
+
+mongoimport --db gatk --collection vcf --drop --file gatk_exome.json --jsonArray
+
+mongo
+
+#Within Mongo use the following:
+
+use gatk
+db.vcf.find( { "rec.chr": "X" } ).count()
+db.vcf.find( { "rec.dp": { $gt: 5 }}  ).count()
+
+
+
+
+#Exercise 1
+#With bio-vcf take the field "Variant Confidence/Quality by Depth" and filter on QD>12.0. How many matches?
+
+cat gatk_exome.vcf |bio-vcf --eval '[r.chr,r.pos,r.ref,r.alt,r.info.dp]' --filter "r.info.qd>12"|grep -v '#' |wc -l
+
+
+
+
+#Exercise 2
+#Same as exercise 1 but with mongoDB....
+
+#Use example_vcf from day before
+
+#Create template infamous_vcf.json and add qd to it
+#Dp and qd dont need "" around it!
+
+{
+            "chr": "<%= rec.chrom %>",
+            "pos": <%= rec.pos %>,
+            "ref": "<%= rec.ref %>",
+            "alt": "<%= rec.alt[0] %>",
+            "dp":  <%= rec.info.dp %>,
+            "qd":  <%= rec.info.qd %>
+}
+  #Run and import into Mongo  cat lala.vcf |bio-vcf --template infamous_vcf.json > vcf2.json  mongoimport --db gatk --collection vcf --drop --file vcf2.json --jsonArray
+
+mongo
+
+#Within Mongo use the following:
+
+use gatk
+db.vcf.find( { "qd": { $gt: 12.0 }}  ).count()
