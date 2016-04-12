@@ -1,3 +1,4 @@
-# CSND_Advanced_Bfx_Course
+# Advanced_Bfx_Course
 
-== fun?
+One week course in advanced bioinformatics by the CSND graduate school
+Instructors: Joep de Ligt en Pjotr Prins
