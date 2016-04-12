@@ -1,5 +1,5 @@
 # CSND_Advanced_Bfx_Course 
-# Homework_Day1
+# Homework_Day1_Assignment2.sql
 
 
 #SQL statement creating two tables, Mutations and Samples
