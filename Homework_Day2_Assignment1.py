@@ -2,7 +2,7 @@
 #Homework_Day2_Assignment1.py
 
 
-#Python script to count annotation ENST00000263967
+#Python script for exercise to count annotation ENST00000263967
 
 #After preparing a template with bio-vcf including annotation: "ann":  '"<%= rec.info.ann %>"'
 #And importing into Mongo
