@@ -16,8 +16,8 @@ db = client.PIK3CA
 #cursor=db.vcf.update_many({ },{"$pop":{"samples":-2}})
 #cursor=db.vcf.update_many({ },{"$pop":{"samples":183}})
 
-cursor =db.vcf.update({ },{"$pop":{"samples":-2}}, {multi:true})
-cursor=db.vcf.update({ },{"$pop":{"samples":183}}, {multi:true}) 
+cursor =db.vcf.update({ },{"$pop":{"samples":-2}}, {"multi:true"})
+cursor=db.vcf.update({ },{"$pop":{"samples":183}}, {"multi:true"}) 
 
 #Count dp>7
 #For now this might work, but only because in this example both samples are >7 everywhere
