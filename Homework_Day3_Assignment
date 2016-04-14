@@ -1,0 +1,44 @@
+#CSND_Advanced_Bfx_Course
+#Homework_Day3_Assignment
+
+#Make template
+
+cat > rdf_template.erb
+
+#erb file looks like:
+
+=HEADER
+@prefix : <http://biobeat.org/rdf/ns#> .
+=BODY
+<%
+id = ['chr'+rec.chr,rec.pos].join('_')
+%> 
+:<%= id %>
+  :query_id "<%= id %>";
+  :chr "<%= rec.chr %>" ;
+  :dp <%= rec.info.dp %> ;
+  :pos <%= rec.pos %> .
+  
+#Make the actual template and check:  
+
+cat PIK3CA.vcf |bio-vcf -v --template rdf_template.erb > my.rdf
+rapper -i turtle my.rdf
+
+#Returning 120 triples and no error, so load into 4store
+
+rdf=my.rdf
+uri=http://localhost:8000/data/http://biobeat.org/data/$rdf
+curl -X DELETE $uri
+curl -T $rdf -H 'Content-Type: application/x-turtle' $uri
+
+#Make sparql query, that looks like:
+
+PREFIX : <http://biobeat.org/rdf/ns#>
+SELECT ?id, ?dp WHERE {
+?id   :chr    "3";
+      :dp     ?dp.
+FILTER (?dp > 1000)
+}
+
+#And last:
+cat sparqles.rq | sparql-query "http://localhost:8000/sparql/" -p
