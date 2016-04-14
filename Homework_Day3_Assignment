@@ -31,7 +31,7 @@ uri=http://localhost:8000/data/http://biobeat.org/data/$rdf
 curl -X DELETE $uri
 curl -T $rdf -H 'Content-Type: application/x-turtle' $uri
 
-#Make sparql query, that looks like:
+#Make sparql query, mine was:
 
 PREFIX : <http://biobeat.org/rdf/ns#>
 SELECT ?id, ?dp WHERE {
